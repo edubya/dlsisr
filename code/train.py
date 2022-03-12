@@ -1,16 +1,23 @@
-import os
+import os, sys
 import torch  
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 
+import pathlib
 
-script_location="/Users/can/Documents/GitHub"
-os.chdir(script_location)
+#script_location="/Users/can/Documents/GitHub"
+up = lambda pth: pth.parent.resolve()
+
+script_location = up(pathlib.Path(__file__))
+module_location = up(up(script_location))
+
+sys.path.append( str(module_location) )
 
 from dlsisr.code.common.read_data import prepare_images_att
 
-path='/Users/can/Documents/GitHub/dlsisr/data/ORL-DATABASE'
+#path = '/Users/can/Documents/GitHub/dlsisr/data/ORL-DATABASE'
+path = str(module_location / 'dlsisr' / 'data' / 'ORL-DATABASE')
 seen_people_tr,seen_people_te,unseen_people=prepare_images_att(path)
 #%%
 
